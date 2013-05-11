@@ -1,0 +1,5 @@
+platform :ios, '6.0'
+pod 'JSONKit',       '~> 1.4'
+pod 'ECSlidingViewController', '~> 0.10.0'
+pod 'MBProgressHUD', '~> 0.6'
+pod 'AFNetworking', '~> 1.2'

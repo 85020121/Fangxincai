@@ -1,0 +1,19 @@
+PODS:
+  - AFNetworking (1.2.1)
+  - ECSlidingViewController (0.10.0)
+  - JSONKit (1.5pre)
+  - MBProgressHUD (0.6)
+
+DEPENDENCIES:
+  - AFNetworking (~> 1.2)
+  - ECSlidingViewController (~> 0.10.0)
+  - JSONKit (~> 1.4)
+  - MBProgressHUD (~> 0.6)
+
+SPEC CHECKSUMS:
+  AFNetworking: 616da0028916ce296f5c3cef74e5552eb4e10e13
+  ECSlidingViewController: fc9a9a6564d4a64c0d8c7cf5583d2b9a469ecd04
+  JSONKit: 409734ab3407fce90ef7eaa95d7168f38d9a6601
+  MBProgressHUD: 9b55a90566fb5d07df0602f6fd9fa04510ad5d52
+
+COCOAPODS: 0.19.1
