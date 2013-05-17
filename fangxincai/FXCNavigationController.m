@@ -7,6 +7,7 @@
 //
 
 #import "FXCNavigationController.h"
+//#import "ECSlidingViewController.h"
 
 @interface FXCNavigationController ()
 
@@ -14,13 +15,14 @@
 
 @implementation FXCNavigationController
 
+
 - (void)viewWillAppear:(BOOL)animated
 {
     
     [super viewWillAppear:animated];
     
     if (![self.slidingViewController.underLeftViewController isKindOfClass:[FXCMenuViewController class]]) {
-        self.slidingViewController.underLeftViewController  = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
+        self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
     }
     
     [self.view addGestureRecognizer:self.slidingViewController.panGesture];
@@ -40,7 +42,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
+
     self.view.layer.shadowOpacity = 0.75f;
     self.view.layer.shadowRadius = 10.0f;
     self.view.layer.shadowColor = [UIColor whiteColor].CGColor;

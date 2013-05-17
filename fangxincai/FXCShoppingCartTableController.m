@@ -1,29 +1,30 @@
 //
-//  FXCMenuViewController.m
+//  FXCShoppingCartTableController.m
 //  fangxincai
 //
-//  Created by Bowen GAO on 5/10/13.
+//  Created by Bowen GAO on 5/16/13.
 //  Copyright (c) 2013 Bowen GAO. All rights reserved.
 //
 
-#import "FXCMenuViewController.h"
+#import "FXCShoppingCartTableController.h"
 
-#import "ECSlidingViewController.h"
 #import "FXCNavigationController.h"
+#import "FXCShoppingCartCell.h"
+#import "FXCProduct.h"
+#import "FXCAppDelegate.h"
 
-#define RIGHT_REVEAL_AMOUNT         200.0f
+#define SHOPPING_CART_CELL_HEIGHT       120
 
-@interface FXCMenuViewController ()
+@interface FXCShoppingCartTableController ()
 
-@property (nonatomic, strong) NSArray *menu;
-@property (nonatomic, strong) NSDictionary *pageNibNames;
-@property (nonatomic, strong) NSArray *navBarTitleNames;
+@property (strong, nonatomic) NSMutableArray *dataSource;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end
 
-@implementation FXCMenuViewController
+@implementation FXCShoppingCartTableController
 
-@synthesize menu = _menu, pageNibNames = _pageNibNames, navBarTitleNames = _navBarTitleNames;
+@synthesize dataSource = _dataSource, managedObjectContext = _managedObjectContext;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -44,17 +45,33 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.menu = [NSArray arrayWithObjects:@"首页", @"新鲜蔬菜", @"时令水果", @"其他", @"购物车", nil];
-    self.pageNibNames = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"FXCMainNavController", @"FXCMainNavController", @"FXCMainNavController", @"FXCMainNavController", @"ShoppingCart", nil]  forKeys:self.menu];
-    self.navBarTitleNames = [NSArray arrayWithObjects:@"放心菜", @"新鲜蔬菜", @"时令水果", @"其他", @"购物车", nil];
+    // Set managedObjectContext
+    if (_managedObjectContext == nil) {
+        _managedObjectContext = ((FXCAppDelegate *)[[UIApplication sharedApplication] delegate]).managedObjectContext;
+    }
     
-    [self.slidingViewController setAnchorRightRevealAmount:RIGHT_REVEAL_AMOUNT];
-    self.slidingViewController.underLeftWidthLayout = ECFullWidth;
+    NSError *error;
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"FXCShoppingOrder"];
+	[request setFetchBatchSize:20];
     
+	// Order the events by creation date, most recent first.
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
+	NSArray *sortDescriptors = @[sortDescriptor];
+	[request setSortDescriptors:sortDescriptors];
+	
+	// Execute the fetch.
+	NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (fetchResults == nil) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        _dataSource = [[NSMutableArray alloc] init];
+	} else {
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"black-background.jpg"]];
-    self.tableView.backgroundView = imageView;
-        
+        // Set self's events array to a mutable copy of the fetch results.
+        [self setDataSource:(NSMutableArray *)[fetchResults mutableCopy]];
+    }
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,21 +91,21 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.menu count];
+    return [_dataSource count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *ShoppingCartCellIdent = @"ShoppingCartCell";
+    FXCShoppingCartCell *cell = (FXCShoppingCartCell *)[tableView dequeueReusableCellWithIdentifier:ShoppingCartCellIdent forIndexPath:indexPath];
+    
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[FXCShoppingCartCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ShoppingCartCellIdent];
     }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", [self.menu objectAtIndex:indexPath.row]];
-    cell.textLabel.textColor = [UIColor whiteColor];
     // Configure the cell...
-    
+    FXCProduct *product = (FXCProduct *)[_dataSource objectAtIndex:[indexPath row]];
+    cell.name.text = product.productID;
     return cell;
 }
 
@@ -142,25 +159,13 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-    
-    NSString *identifier = [NSString stringWithFormat:@"%@",[self.pageNibNames objectForKey:[self.menu objectAtIndex:indexPath.row]]];
-    NSLog(@"Indent is: %@", identifier);
-    FXCNavigationController *newTopViewController = (FXCNavigationController *)[self.storyboard instantiateViewControllerWithIdentifier:identifier];
-    
-    newTopViewController.navigationBar.topItem.title = [self.navBarTitleNames objectAtIndex:indexPath.row];
-    [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
-        CGRect frame = self.slidingViewController.topViewController.view.frame;
-        self.slidingViewController.topViewController = newTopViewController;
-        self.slidingViewController.topViewController.view.frame = frame;
-        [self.slidingViewController resetTopView];
-    }];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    // This will create a "invisible" footer
-    return 0.01f;
 }
 
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return SHOPPING_CART_CELL_HEIGHT;
+
+}
 
 @end

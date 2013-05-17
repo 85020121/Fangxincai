@@ -7,12 +7,14 @@
 //
 
 #import "FXCViewController.h"
+#import "FXCNavigationController.h"
 
 @interface FXCViewController ()
 
 @end
 
 @implementation FXCViewController
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,7 +30,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainPage"];
+    self.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FXCMainNavController"];
 }
 
 - (void)didReceiveMemoryWarning
