@@ -10,7 +10,7 @@
 
 #import "FXCProduct.h"
 
-@interface FXCProductViewController : UIViewController
+@interface FXCProductViewController : UIViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) FXCProduct *product;
 

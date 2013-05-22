@@ -27,6 +27,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *addToCart;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
+- (IBAction)dismissKeyboard:(id)sender;
 @end
 
 @implementation FXCProductViewController
@@ -62,12 +63,12 @@
     [_infoFrame setBounds:newBounds];
     
     // Set quantityStepper
-    _quantityStepper.minimumValue = 1;
-    _quantityStepper.maximumValue = 999;
-    _quantityStepper.stepValue = 1;
-    _quantityStepper.wraps = YES;
-    _quantityStepper.autorepeat = YES;
-    _quantityStepper.continuous = YES;
+//    _quantityStepper.minimumValue = 1;
+//    _quantityStepper.maximumValue = 999;
+//    _quantityStepper.stepValue = 1;
+//    _quantityStepper.wraps = YES;
+//    _quantityStepper.autorepeat = YES;
+//    _quantityStepper.continuous = YES;
     _quantityField.text = [NSString stringWithFormat:@"%.f", _quantityStepper.value];
     
     // Set product info
@@ -88,12 +89,29 @@
 }
 
 - (IBAction)addToCart:(id)sender {
-    FXCShoppingOrder *order = (FXCShoppingOrder *)[NSEntityDescription insertNewObjectForEntityForName:@"FXCShoppingOrder" inManagedObjectContext:self.managedObjectContext];
+    FXCShoppingOrder *order = nil;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    request.entity = [NSEntityDescription entityForName:@"FXCShoppingOrder" inManagedObjectContext:_managedObjectContext];
+    request.predicate = [NSPredicate predicateWithFormat:@"productID = %@", _product.productID];
+
+    NSError *error = nil;
+    order = [[_managedObjectContext executeFetchRequest:request error:&error] lastObject];
+    
+    if (error) {
+        NSLog(@"[%@, %@] error looking up user with id: %i with error: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [_product.productID intValue], [error localizedDescription]);
+    } else if (!order) {
+        order = (FXCShoppingOrder *)[NSEntityDescription insertNewObjectForEntityForName:@"FXCShoppingOrder" inManagedObjectContext:self.managedObjectContext];
+    }
+
     
     order.productID = _product.productID;
     order.date = [NSDate date];
     
-    NSError *error;
+    // Set order's quantity
+    NSNumberFormatter *i = [[NSNumberFormatter alloc] init];
+    [i setNumberStyle:NSNumberFormatterDecimalStyle];
+    order.orderQuantity = [NSNumber numberWithInt:[order.orderQuantity integerValue] + [[i numberFromString:_quantityField.text] integerValue]];
     
 	if (![self.managedObjectContext save:&error]) {
         // Replace this implementation with code to handle the error appropriately.
@@ -117,4 +135,27 @@
 }
 
 
+#pragma mark - Editing text fields
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+	if ([textField.text intValue]<=0 || [textField.text isEqualToString:@""]) {
+        textField.text = @"1";
+    }
+    if ([textField.text intValue] > 999) {
+        textField.text = @"999";
+    }
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+	[textField resignFirstResponder];
+	return NO;
+}
+
+
+- (IBAction)dismissKeyboard:(id)sender {
+    [_quantityField resignFirstResponder];
+}
 @end

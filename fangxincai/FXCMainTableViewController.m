@@ -51,6 +51,8 @@ static NSDictionary *productCategory;
 {
     [super viewDidLoad];
     
+    static int RequestFrom = 0;
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -70,15 +72,13 @@ static NSDictionary *productCategory;
     self.menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.menuBtn.frame = CGRectMake(8, 10, 34, 24);
     [self.menuBtn setBackgroundImage:[UIImage imageNamed:@"menuButton.png"] forState:UIControlStateNormal];
-    [self.menuBtn addTarget:self action:@selector(revealMenu:) forControlEvents:UIControlEventTouchUpInside];
-    // self.navigationItem.title = @"test";
-    
+    [self.menuBtn addTarget:self action:@selector(revealMenu:) forControlEvents:UIControlEventTouchUpInside];    
     UIBarButtonItem *barBtn = [[UIBarButtonItem alloc] initWithCustomView:self.menuBtn];
     self.navigationItem.leftBarButtonItem = barBtn;
 
     // Set up data source
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@&category=%@",FXC_PRODUCTS_REQUEST, [productCategory objectForKey:self.navigationItem.title]]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@&category=%@&from=%d&interval=%d",FXC_PRODUCTS_BY_INTERVAL, [productCategory objectForKey:self.navigationItem.title], RequestFrom, REQUEST_PRODUCTS_INTERVAL]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -137,8 +137,6 @@ static NSDictionary *productCategory;
 {
     static NSString *CellIdent = @"FXCCustomerCell";
     static NSString *CellIdent2 = @"MainTableCell";
-    static UIImage *blackImage;
-    blackImage = [UIImage imageNamed:@"black.png"];
     
     if (([indexPath section] == 0) && (tableView != self.searchDisplayController.searchResultsTableView)) {
         // Section 0 is used to show image, no-selectable
@@ -181,7 +179,7 @@ static NSDictionary *productCategory;
 //                NSLog(@"Failed: %@",[error localizedDescription]);
 //        }];
 
-        [cell.imageFrame setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",FXC_SERVER_HEAD, [product picUrl]]] placeholderImage:blackImage];
+        [cell.imageFrame setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",FXC_SERVER_HEAD, [product picUrl]]]];
 
         cell.nameLabel.text = [product name];
         cell.price.text = [NSString stringWithFormat:@"%@ 元",[product price]];

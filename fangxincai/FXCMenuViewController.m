@@ -39,7 +39,7 @@
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -144,11 +144,10 @@
      */
     
     NSString *identifier = [NSString stringWithFormat:@"%@",[self.pageNibNames objectForKey:[self.menu objectAtIndex:indexPath.row]]];
-    NSLog(@"Indent is: %@", identifier);
     FXCNavigationController *newTopViewController = (FXCNavigationController *)[self.storyboard instantiateViewControllerWithIdentifier:identifier];
     
     newTopViewController.navigationBar.topItem.title = [self.navBarTitleNames objectAtIndex:indexPath.row];
-    [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
+    [self.slidingViewController anchorTopViewOffScreenTo:ECHILD animations:nil onComplete:^{
         CGRect frame = self.slidingViewController.topViewController.view.frame;
         self.slidingViewController.topViewController = newTopViewController;
         self.slidingViewController.topViewController.view.frame = frame;

@@ -7,7 +7,6 @@
 //
 
 #import "FXCNavigationController.h"
-//#import "ECSlidingViewController.h"
 
 @interface FXCNavigationController ()
 
@@ -47,11 +46,11 @@
     self.view.layer.shadowRadius = 10.0f;
     self.view.layer.shadowColor = [UIColor whiteColor].CGColor;
     
-    UIImage *image = [UIImage imageNamed:@"bar.png"];
-    [self.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    
-    UIImageView *bar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"black-navigation-bar.png"]];
-    [self.navigationBar addSubview:bar];
+//    UIImage *image = [UIImage imageNamed:@"bar.png"];
+//    [self.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+//    
+//    UIImageView *bar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"black-navigation-bar.png"]];
+//    [self.navigationBar addSubview:bar];
 //    NSLog(@"width=%f and height=%f", self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
 }
 
