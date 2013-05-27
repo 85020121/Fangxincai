@@ -10,5 +10,5 @@
 #define FXC_PRODUCTS_REQUEST            @"http://192.168.1.83:8888/protected/iOS/ios_tools.php?iosRequest=iosGetProducts"
 #define FXC_PRODUCTS_BY_IDS             @"http://192.168.1.83:8888/protected/iOS/ios_tools.php?iosRequest=iosGetProductsByIDs"
 #define FXC_PRODUCTS_BY_INTERVAL        @"http://192.168.1.83:8888/protected/iOS/ios_tools.php?iosRequest=iosGetProductsByInterval"
-#define REQUEST_PRODUCTS_INTERVAL       6
+#define REQUEST_PRODUCTS_INTERVAL       15
 

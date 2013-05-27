@@ -137,7 +137,7 @@
 {
     // Navigation logic may go here. Create and push another view controller.
     /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     <#DetailViewController#> *detailViewController = [[DetailViewController alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
      // ...
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
@@ -145,6 +145,8 @@
     
     NSString *identifier = [NSString stringWithFormat:@"%@",[self.pageNibNames objectForKey:[self.menu objectAtIndex:indexPath.row]]];
     FXCNavigationController *newTopViewController = (FXCNavigationController *)[self.storyboard instantiateViewControllerWithIdentifier:identifier];
+    //[newTopViewController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"PullView"] animated:NO];
+
     
     newTopViewController.navigationBar.topItem.title = [self.navBarTitleNames objectAtIndex:indexPath.row];
     [self.slidingViewController anchorTopViewOffScreenTo:ECHILD animations:nil onComplete:^{

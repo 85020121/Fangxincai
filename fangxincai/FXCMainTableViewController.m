@@ -14,7 +14,6 @@
 #import "UIImageView+AFNetworking.h"
 #import "MBProgressHUD.h"
 #import "FXCCustomerCell.h"
-#import "ECSlidingViewController.h"
 #import "FXCProductViewController.h"
 #import "FXCShoppingOrder.h"
 #import "FXCNavigationController.h"
@@ -25,7 +24,6 @@
 
 @interface FXCMainTableViewController ()
 
-@property (strong, nonatomic) UIButton *menuBtn;
 @property (strong, nonatomic) NSMutableArray *filteredProducts;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -35,7 +33,6 @@
 
 static NSDictionary *productCategory;
 
-@synthesize menuBtn = _menuBtn;
 @synthesize searchBar = _searchBar, products = _products, dataSource = _dataSource, filteredProducts = _filteredProducts;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -67,24 +64,16 @@ static NSDictionary *productCategory;
     CGRect newBounds = [[self tableView] bounds];
     newBounds.origin.y = newBounds.origin.y + _searchBar.bounds.size.height;
     [[self tableView] setBounds:newBounds];
-    
-    // Set up menu button
-    self.menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.menuBtn.frame = CGRectMake(8, 10, 34, 24);
-    [self.menuBtn setBackgroundImage:[UIImage imageNamed:@"menuButton.png"] forState:UIControlStateNormal];
-    [self.menuBtn addTarget:self action:@selector(revealMenu:) forControlEvents:UIControlEventTouchUpInside];    
-    UIBarButtonItem *barBtn = [[UIBarButtonItem alloc] initWithCustomView:self.menuBtn];
-    self.navigationItem.leftBarButtonItem = barBtn;
 
     // Set up data source
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@&category=%@&from=%d&interval=%d",FXC_PRODUCTS_BY_INTERVAL, [productCategory objectForKey:self.navigationItem.title], RequestFrom, REQUEST_PRODUCTS_INTERVAL]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@&category=%@&from=%d&interval=%d",FXC_PRODUCTS_BY_INTERVAL, [productCategory objectForKey:self.title], RequestFrom, REQUEST_PRODUCTS_INTERVAL]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             _products = [(NSDictionary *)JSON count] > 0 ? [(NSDictionary *)JSON allValues] : [[NSArray alloc] initWithObjects: nil];
-            //NSLog(@"%@",_products);
+            NSLog(@"Request: %@ \n %@", request, _products);
             _dataSource = [[NSArray alloc] initWithObjects:[[NSArray alloc] initWithObjects:@"test.jpg", nil], _products, nil];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -286,14 +275,6 @@ static NSDictionary *productCategory;
     }
     return nil;
 
-}
-
-
-
-#pragma mark - sliding method
-- (IBAction)revealMenu:(id)sender
-{
-    [self.slidingViewController anchorTopViewTo:ECRight];
 }
 
 

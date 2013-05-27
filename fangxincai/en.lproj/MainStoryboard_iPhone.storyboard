@@ -16,7 +16,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="824" y="-606"/>
+            <point key="canvasLocation" x="120" y="-238"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="Vz7-Ho-fHb">
@@ -47,7 +47,71 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kvh-RU-3q7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="824" y="168"/>
+            <point key="canvasLocation" x="688" y="434"/>
+        </scene>
+        <!--Welcome View Controller - 放心菜-->
+        <scene sceneID="25G-yH-vAF">
+            <objects>
+                <viewController id="dJm-DO-lHZ" customClass="FXCWelcomeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Bz-gb-ghN">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <containerView contentMode="scaleToFill" id="99c-mk-RTc">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="8oB-cN-65f" kind="embed" id="lx6-3p-bH3"/>
+                                </connections>
+                            </containerView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="LZn-ev-CED">
+                                <rect key="frame" x="0.0" y="200" width="320" height="304"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WelcomeCell" textLabel="PE4-iC-b4p" detailTextLabel="bb5-I6-Lbf" rowHeight="70" style="IBUITableViewCellStyleSubtitle" id="vZF-Eq-Jf3">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="70"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="69"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PE4-iC-b4p">
+                                                    <rect key="frame" x="10" y="15" width="38" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bb5-I6-Lbf">
+                                                    <rect key="frame" x="10" y="37" width="36" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="dJm-DO-lHZ" id="j2v-Qu-VxP"/>
+                                    <outlet property="delegate" destination="dJm-DO-lHZ" id="Okr-lj-tGM"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="放心菜" id="tAR-qB-LO5"/>
+                    <connections>
+                        <outlet property="tableView" destination="LZn-ev-CED" id="C8K-C7-yK2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nsg-pg-uAH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1350" y="252"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Z44-gv-90c">
@@ -58,12 +122,34 @@
                         <color key="tintColor" red="0.0060559410575953413" green="0.0" blue="0.1155133928571429" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="22S-fG-CAW" kind="relationship" relationship="rootViewController" id="U3n-q7-Fad"/>
+                        <segue destination="dJm-DO-lHZ" kind="relationship" relationship="rootViewController" id="VRn-WR-FfC"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fEe-7x-5HV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1253" y="-551"/>
+            <point key="canvasLocation" x="677" y="-431"/>
+        </scene>
+        <!--Pullable Main View Controller - 放心菜-->
+        <scene sceneID="HQ5-HX-Q6i">
+            <objects>
+                <viewController storyboardIdentifier="PullView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Nmi-Gr-aae" customClass="FXCPullableMainViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="82" sectionHeaderHeight="22" sectionFooterHeight="22" id="k2v-i6-Ilt" customClass="PullTableView">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="Nmi-Gr-aae" id="u10-4K-tTO"/>
+                            <outlet property="pullDelegate" destination="Nmi-Gr-aae" id="mKX-f6-bru"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="放心菜" id="a9a-e4-LcT"/>
+                    <connections>
+                        <outlet property="pullTableView" destination="k2v-i6-Ilt" id="BjG-8L-4vR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nan-ki-GDU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1340" y="-443"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="umT-c1-aWf">
@@ -78,7 +164,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2We-2e-dTh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1377" y="133"/>
+            <point key="canvasLocation" x="1980" y="261"/>
         </scene>
         <!--Shopping Cart Table Controller-->
         <scene sceneID="B7A-b2-N4b">
@@ -208,14 +294,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EZa-Nh-gPS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1881" y="133"/>
+            <point key="canvasLocation" x="2484" y="261"/>
         </scene>
-        <!--Main Table View Controller - 放心菜-->
+        <!--Main Table View Controller-->
         <scene sceneID="RKf-Ew-r3m">
             <objects>
-                <tableViewController storyboardIdentifier="MainPage" id="22S-fG-CAW" customClass="FXCMainTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MainPage" useStoryboardIdentifierAsRestorationIdentifier="YES" id="22S-fG-CAW" customClass="FXCMainTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="200" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yj1-HY-o28">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" placeholder="搜索" id="bXk-oJ-NHC">
@@ -243,7 +329,7 @@
                             <outlet property="delegate" destination="22S-fG-CAW" id="xn4-nT-Rgv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="放心菜" id="kMF-rJ-TDn"/>
+                    <navigationItem key="navigationItem" id="kMF-rJ-TDn"/>
                     <connections>
                         <outlet property="searchBar" destination="bXk-oJ-NHC" id="9Xs-yK-ae9"/>
                         <outlet property="searchDisplayController" destination="HLZ-7h-Sat" id="aVr-fl-UtZ"/>
@@ -260,7 +346,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1724" y="-551"/>
+            <point key="canvasLocation" x="1980" y="-431"/>
         </scene>
         <!--Product View Controller-->
         <scene sceneID="wfT-Nt-WB3">
@@ -376,7 +462,40 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2193" y="-551"/>
+            <point key="canvasLocation" x="2449" y="-431"/>
+        </scene>
+        <!--Scroll Pics View Controller-->
+        <scene sceneID="fs4-Is-e1h">
+            <objects>
+                <viewController id="8oB-cN-65f" customClass="FXCScrollPicsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZHP-8E-qaC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="TTF-dH-TBF">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="226"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8oB-cN-65f" id="XPJ-UO-Lni"/>
+                                </connections>
+                            </scrollView>
+                            <pageControl opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="vQB-GN-hld">
+                                <rect key="frame" x="0.0" y="164" width="320" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="pageControl" destination="vQB-GN-hld" id="Tw4-UE-byT"/>
+                        <outlet property="scrollView" destination="TTF-dH-TBF" id="guD-MO-w7W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gYk-wc-Rlu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1350" y="934"/>
         </scene>
     </scenes>
     <classes>
@@ -386,7 +505,6 @@
         <class className="FXCMainTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FXCMainTableViewController.h"/>
             <relationships>
-                <relationship kind="action" name="revealMenu:"/>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
             </relationships>
         </class>
@@ -411,6 +529,19 @@
                 <relationship kind="outlet" name="quantityStepper" candidateClass="UIStepper"/>
             </relationships>
         </class>
+        <class className="FXCPullableMainViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FXCPullableMainViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="pullTableView" candidateClass="PullTableView"/>
+            </relationships>
+        </class>
+        <class className="FXCScrollPicsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FXCScrollPicsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
         <class className="FXCShoppingCartCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FXCShoppingCartCell.h"/>
             <relationships>
@@ -432,6 +563,18 @@
         </class>
         <class className="FXCViewController" superclassName="ECSlidingViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FXCViewController.h"/>
+        </class>
+        <class className="FXCWelcomeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FXCWelcomeViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="PullTableView" superclassName="UITableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PullTableView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="pullDelegate"/>
+            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -27,22 +27,19 @@
 
 #import <UIKit/UIKit.h>
 #import "MessageInterceptor.h"
-#import "EGORefreshTableHeaderView.h"
 #import "LoadMoreTableFooterView.h"
 
 @class PullTableView;
 @protocol PullTableViewDelegate <NSObject>
 
 /* After one of the delegate methods is invoked a loading animation is started, to end it use the respective status update property */
-- (void)pullTableViewDidTriggerRefresh:(PullTableView*)pullTableView;
 - (void)pullTableViewDidTriggerLoadMore:(PullTableView*)pullTableView;
 
 @end
 
 
-@interface PullTableView : UITableView <EGORefreshTableHeaderDelegate, LoadMoreTableFooterDelegate>{
+@interface PullTableView : UITableView <LoadMoreTableFooterDelegate>{
     
-    EGORefreshTableHeaderView *refreshView;
     LoadMoreTableFooterView *loadMoreView;
     
     // Since we use the contentInsets to manipulate the view we need to store the the content insets originally specified.
@@ -76,7 +73,6 @@
 
 /* Properties to set the status of the refresh/loadMore operations. */
 /* After the delegate methods are triggered the respective properties are automatically set to YES. After a refresh/reload is done it is necessary to set the respective property to NO, otherwise the animation won't disappear. You can also set the properties manually to YES to show the animations. */
-@property (nonatomic, assign) BOOL pullTableIsRefreshing;
 @property (nonatomic, assign) BOOL pullTableIsLoadingMore;
 
 /* Delegate */

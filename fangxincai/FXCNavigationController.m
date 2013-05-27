@@ -7,6 +7,7 @@
 //
 
 #import "FXCNavigationController.h"
+#import "FXCMainTableViewController.h"
 
 @interface FXCNavigationController ()
 

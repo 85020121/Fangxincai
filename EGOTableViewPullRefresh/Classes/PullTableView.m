@@ -60,7 +60,6 @@
     [pullTextColor release];
     [pullLastRefreshDate release];
     
-    [refreshView release];
     [loadMoreView release];
     [delegateInterceptor release];
     delegateInterceptor = nil;
@@ -80,12 +79,6 @@
     /* Status Properties */
     pullTableIsRefreshing = NO;
     pullTableIsLoadingMore = NO;
-    
-    /* Refresh View */
-    refreshView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0, -self.bounds.size.height, self.bounds.size.width, self.bounds.size.height)];
-    refreshView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-    refreshView.delegate = self;
-    [self addSubview:refreshView];
     
     /* Load more view init */
     loadMoreView = [[LoadMoreTableFooterView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height, self.bounds.size.width, self.bounds.size.height)];
@@ -134,20 +127,8 @@
 
 #pragma mark - Status Propreties
 
-@synthesize pullTableIsRefreshing;
 @synthesize pullTableIsLoadingMore;
 
-- (void)setPullTableIsRefreshing:(BOOL)isRefreshing
-{
-    if(!pullTableIsRefreshing && isRefreshing) {
-        // If not allready refreshing start refreshing
-        [refreshView startAnimatingWithScrollView:self];
-        pullTableIsRefreshing = YES;
-    } else if(pullTableIsRefreshing && !isRefreshing) {
-        [refreshView egoRefreshScrollViewDataSourceDidFinishedLoading:self];
-        pullTableIsRefreshing = NO;
-    }
-}
 
 - (void)setPullTableIsLoadingMore:(BOOL)isLoadingMore
 {
@@ -170,7 +151,6 @@
 
 - (void)configDisplayProperties
 {
-    [refreshView setBackgroundColor:self.pullBackgroundColor textColor:self.pullTextColor arrowImage:self.pullArrowImage];
     [loadMoreView setBackgroundColor:self.pullBackgroundColor textColor:self.pullTextColor arrowImage:self.pullArrowImage];
 }
 
@@ -201,21 +181,11 @@
     } 
 }
 
-- (void)setPullLastRefreshDate:(NSDate *)aDate
-{
-    if(aDate != pullLastRefreshDate) {
-        [pullLastRefreshDate release];
-        pullLastRefreshDate = [aDate retain];
-        [refreshView refreshLastUpdatedDate];
-    }
-}
-
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     
-    [refreshView egoRefreshScrollViewDidScroll:scrollView];
     [loadMoreView egoRefreshScrollViewDidScroll:scrollView];
     
     // Also forward the message to the real delegate
@@ -228,7 +198,6 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     
-    [refreshView egoRefreshScrollViewDidEndDragging:scrollView];
     [loadMoreView egoRefreshScrollViewDidEndDragging:scrollView];
     
     // Also forward the message to the real delegate
@@ -240,7 +209,6 @@
 
 - (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [refreshView egoRefreshScrollViewWillBeginDragging:scrollView];
     
     // Also forward the message to the real delegate
     if ([delegateInterceptor.receiver
@@ -250,18 +218,6 @@
 }
 
 
-
-#pragma mark - EGORefreshTableHeaderDelegate
-
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
-{
-    pullTableIsRefreshing = YES;
-    [pullDelegate pullTableViewDidTriggerRefresh:self];    
-}
-
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view {
-    return self.pullLastRefreshDate;
-}
 
 #pragma mark - LoadMoreTableViewDelegate
 
