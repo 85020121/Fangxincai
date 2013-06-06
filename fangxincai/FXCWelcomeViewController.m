@@ -10,8 +10,9 @@
 #import "FXCMainTableViewController.h"
 #import "ECSlidingViewController.h"
 
-#define MAIN_VIEW_CONTROLLER        @"MainPage"
+#define MAIN_VIEW_CONTROLLER        @"FXCMainTableViewController"
 #define WELCOME_CELL_HEIGHT         70.0f
+
 @interface FXCWelcomeViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *dataSource;

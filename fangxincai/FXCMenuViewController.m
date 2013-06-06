@@ -10,6 +10,7 @@
 
 #import "ECSlidingViewController.h"
 #import "FXCNavigationController.h"
+#import "FXCMainTableViewController.h"
 
 #define RIGHT_REVEAL_AMOUNT         200.0f
 
@@ -45,7 +46,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.menu = [NSArray arrayWithObjects:@"首页", @"新鲜蔬菜", @"时令水果", @"其他", @"购物车", nil];
-    self.pageNibNames = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"FXCMainNavController", @"FXCMainNavController", @"FXCMainNavController", @"FXCMainNavController", @"ShoppingCart", nil]  forKeys:self.menu];
+    self.pageNibNames = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"FXCWelcomeViewController", @"FXCMainTableViewController", @"FXCMainTableViewController", @"FXCMainTableViewController", @"ShoppingCart", nil]  forKeys:self.menu];
     self.navBarTitleNames = [NSArray arrayWithObjects:@"放心菜", @"新鲜蔬菜", @"时令水果", @"其他", @"购物车", nil];
     
     [self.slidingViewController setAnchorRightRevealAmount:RIGHT_REVEAL_AMOUNT];
@@ -144,14 +145,34 @@
      */
     
     NSString *identifier = [NSString stringWithFormat:@"%@",[self.pageNibNames objectForKey:[self.menu objectAtIndex:indexPath.row]]];
-    FXCNavigationController *newTopViewController = (FXCNavigationController *)[self.storyboard instantiateViewControllerWithIdentifier:identifier];
-    //[newTopViewController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"PullView"] animated:NO];
 
+    if ([indexPath row] == 0) {
+        [self.slidingViewController anchorTopViewOffScreenTo:ECHILD animations:nil onComplete:^{
+            CGRect frame = self.slidingViewController.topViewController.view.frame;
+            [(UINavigationController *)self.slidingViewController.topViewController popToRootViewControllerAnimated:NO];
+            self.slidingViewController.topViewController.view.frame = frame;
+            [self.slidingViewController resetTopView];
+        }];
+        return;
+    }
     
-    newTopViewController.navigationBar.topItem.title = [self.navBarTitleNames objectAtIndex:indexPath.row];
+    NSLog(@"return");
+
+    FXCMainTableViewController *topView = (FXCMainTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:identifier];
+    
+    topView.title = [self.navBarTitleNames objectAtIndex:indexPath.row];
+    
+    //[newTopViewController pushViewController:topView animated:NO];
+    //FXCNavigationController *newTopViewController = (FXCNavigationController *)[self.storyboard instantiateViewControllerWithIdentifier:identifier];
+    //[newTopViewController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"PullView"] animated:NO];
+    //newTopViewController.navigationBar.topItem.title = [self.navBarTitleNames objectAtIndex:indexPath.row];
+    
     [self.slidingViewController anchorTopViewOffScreenTo:ECHILD animations:nil onComplete:^{
         CGRect frame = self.slidingViewController.topViewController.view.frame;
-        self.slidingViewController.topViewController = newTopViewController;
+//        self.slidingViewController.topViewController = newTopViewController;
+        [(UINavigationController *)self.slidingViewController.topViewController popToRootViewControllerAnimated:NO];
+        [(UINavigationController *)self.slidingViewController.topViewController pushViewController:topView animated:NO];
+//        [(FXCNavigationController *)self.slidingViewController.topViewController setViewControllers:@[topView]];
         self.slidingViewController.topViewController.view.frame = frame;
         [self.slidingViewController resetTopView];
     }];

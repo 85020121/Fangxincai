@@ -52,7 +52,7 @@
         <!--Welcome View Controller - 放心菜-->
         <scene sceneID="25G-yH-vAF">
             <objects>
-                <viewController id="dJm-DO-lHZ" customClass="FXCWelcomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FXCWelcomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dJm-DO-lHZ" customClass="FXCWelcomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Bz-gb-ghN">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -299,7 +299,7 @@
         <!--Main Table View Controller-->
         <scene sceneID="RKf-Ew-r3m">
             <objects>
-                <tableViewController storyboardIdentifier="MainPage" useStoryboardIdentifierAsRestorationIdentifier="YES" id="22S-fG-CAW" customClass="FXCMainTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FXCMainTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="22S-fG-CAW" customClass="FXCMainTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="200" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yj1-HY-o28">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -346,7 +346,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1980" y="-431"/>
+            <point key="canvasLocation" x="1966" y="-431"/>
         </scene>
         <!--Product View Controller-->
         <scene sceneID="wfT-Nt-WB3">

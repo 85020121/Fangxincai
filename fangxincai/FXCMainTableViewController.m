@@ -73,7 +73,7 @@ static NSDictionary *productCategory;
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             _products = [(NSDictionary *)JSON count] > 0 ? [(NSDictionary *)JSON allValues] : [[NSArray alloc] initWithObjects: nil];
-            NSLog(@"Request: %@ \n %@", request, _products);
+            //NSLog(@"Request: %@ \n %@", request, _products);
             _dataSource = [[NSArray alloc] initWithObjects:[[NSArray alloc] initWithObjects:@"test.jpg", nil], _products, nil];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
