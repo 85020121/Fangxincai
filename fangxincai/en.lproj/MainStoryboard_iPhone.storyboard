@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -151,27 +151,12 @@
             </objects>
             <point key="canvasLocation" x="1340" y="-443"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="umT-c1-aWf">
-            <objects>
-                <navigationController storyboardIdentifier="ShoppingCart" definesPresentationContext="YES" id="8Yy-lW-mFj" customClass="FXCNavigationController" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TuL-VM-T7P">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="zzl-YV-SoV" kind="relationship" relationship="rootViewController" id="4GW-8S-hj6"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2We-2e-dTh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1980" y="261"/>
-        </scene>
         <!--Shopping Cart Table Controller-->
         <scene sceneID="B7A-b2-N4b">
             <objects>
-                <tableViewController storyboardIdentifier="" id="zzl-YV-SoV" customClass="FXCShoppingCartTableController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ShoppingCart" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zzl-YV-SoV" customClass="FXCShoppingCartTableController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" id="tr8-iX-eyS">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
